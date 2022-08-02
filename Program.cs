@@ -131,6 +131,7 @@ public class Program
         string compressedBlob = Regex.Match(yaml, "compressedBlob: ([a-fA-F0-9]*)\n").Groups[1].Value;
         byte[] bytes = HexStringToBytes(compressedBlob);
 
+        // hardcoded decompressed length, lmao. Real solution is to parse the yaml file and read decompressedLengths
         byte[] blob = new byte[12344];
         LZ4_decompress_safe(bytes, blob, bytes.Length, 12344);
 
