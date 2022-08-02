@@ -45,8 +45,10 @@ public class Program
 
     string DisassembleDXBC(byte[] binary)
     {
+        uint flags = 0; 
+
         ID3DBlob? res = null;
-        D3DDisassemble(binary, new UIntPtr((uint)binary.Length), 0, null, ref res);
+        D3DDisassemble(binary, new UIntPtr((uint)binary.Length), flags, null, ref res);
         return ID3DBlobToString(res);
     }
 
@@ -147,6 +149,8 @@ public class Program
 
             string disasm = DisassembleDXBC(gpuCode);
             File.WriteAllText($"out/out{blobIdx}.asm", disasm);
+
+            Process.Start("thirdparty/cmd_Decompiler.exe", $"-D out/out{blobIdx}.dxbc");
 
             codeOffset += (int)codeSize;
             blobIdx++;
