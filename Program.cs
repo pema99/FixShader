@@ -62,6 +62,8 @@ public class Program
         return res;
     }
 
+    // This should work for the most part, but not using it currently since it's easier for the time being
+    // to just scan for DXBC magic bytes instead.
     byte[] GetBlobData(byte[] decomp, uint index)
     {
         bool isOldSerialization = false; // version=1
